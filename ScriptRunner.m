@@ -5,6 +5,12 @@
 //  Created by Matt Gallagher on 9/10/08.
 //  Copyright 2008 Matt Gallagher. All rights reserved.
 //
+//  Permission is given to use this source code file, free of charge, in any
+//  project, commercial or otherwise, entirely at your risk, with the condition
+//  that any redistribution (in part or whole) of source code must retain
+//  this copyright and permission notice. Attribution in compiled projects is
+//  appreciated but not required.
+//
 
 #import "ScriptRunner.h"
 #import "XMLDescription.h"
@@ -28,17 +34,17 @@ const float BACKBUTTON_WAIT_DELAY = 0.75;
 - (void)performTouchInView:(UIView *)view hitTest:(BOOL)hitTest
 {
 	UITouch *touch = [[UITouch alloc] initInView:view hitTest:hitTest];
-	UIEvent *event = [[UIEvent alloc] initWithTouch:touch];
-	NSSet *touches = [[NSMutableSet alloc] initWithObjects:&touch count:1];
-
-	[touch.view touchesBegan:touches withEvent:event];
-
-	[touch setPhase:UITouchPhaseEnded];
-
-	[touch.view touchesEnded:touches withEvent:event];
+	UIEvent *eventDown = [[UIEvent alloc] initWithTouch:touch];
 	
-	[event release];
-	[touches release];
+	[touch.view touchesBegan:[eventDown allTouches] withEvent:eventDown];
+	
+	[touch setPhase:UITouchPhaseEnded];
+	UIEvent *eventUp = [[UIEvent alloc] initWithTouch:touch];
+	
+	[touch.view touchesEnded:[eventUp allTouches] withEvent:eventUp];
+	
+	[eventDown release];
+	[eventUp release];
 	[touch release];
 }
 

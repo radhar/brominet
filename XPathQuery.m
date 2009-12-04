@@ -5,6 +5,12 @@
 //  Created by Matt Gallagher on 4/08/08.
 //  Copyright 2008 Matt Gallagher. All rights reserved.
 //
+//  Permission is given to use this source code file, free of charge, in any
+//  project, commercial or otherwise, entirely at your risk, with the condition
+//  that any redistribution (in part or whole) of source code must retain
+//  this copyright and permission notice. Attribution in compiled projects is
+//  appreciated but not required.
+//
 
 #import "XPathQuery.h"
 
@@ -25,7 +31,7 @@ NSDictionary *DictionaryForNode(xmlNodePtr currentNode, NSMutableDictionary *par
 		[resultForNode setObject:currentNodeContent forKey:@"nodeName"];
 	}
 	
-	if (currentNode->content)
+	if (currentNode->content && currentNode->type != XML_DOCUMENT_NODE)
 	{
 		NSString *currentNodeContent =
 			[NSString stringWithCString:(const char *)currentNode->content encoding:NSUTF8StringEncoding];

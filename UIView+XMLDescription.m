@@ -54,6 +54,16 @@
 			[resultingXML appendFormat:@"\n%@\t<on>NO</on>", padding];
 		}
 	}
+	if ([self respondsToSelector:@selector(isAnimating)])
+	{
+		if([((UIActivityIndicatorView *)self) isAnimating]) {
+			[resultingXML appendFormat:@"\n%@\t<animating>YES</animating>", padding];			
+		}
+		else {
+			[resultingXML appendFormat:@"\n%@\t<animating>NO</animating>", padding];
+		}
+	}
+    
 	
 	[resultingXML appendFormat:@"\n%@\t<frame>", padding];
 	[resultingXML appendFormat:@"\n%@\t\t<x>%f</x>", padding, self.frame.origin.x];

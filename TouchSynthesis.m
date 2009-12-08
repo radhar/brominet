@@ -53,10 +53,8 @@
 		}
 		 
 		_tapCount = 1;
-		_locationInWindow =
-			CGPointMake(
-				frameInWindow.origin.x + 0.5 * frameInWindow.size.width,
-				frameInWindow.origin.y + 0.5 * frameInWindow.size.height);
+		_locationInWindow = 
+			CGPointMake(CGRectGetMidX(frameInWindow), CGRectGetMidY(frameInWindow));
 		_previousLocationInWindow = _locationInWindow;
 
 		UIView *target = hitTest ?

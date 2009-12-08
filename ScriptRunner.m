@@ -34,14 +34,18 @@ const float BACKBUTTON_WAIT_DELAY = 0.75;
 - (void)performTouchInView:(UIView *)view hitTest:(BOOL)hitTest
 {
 	UITouch *touch = [[UITouch alloc] initInView:view hitTest:hitTest];
-	UIEvent *eventDown = [[UIEvent alloc] initWithTouch:touch];
+	UIEvent *eventDown =  [[NSClassFromString(@"UITouchesEvent") alloc] initWithTouch:touch];
 	
 	[touch.view touchesBegan:[eventDown allTouches] withEvent:eventDown];
 	
 	[touch setPhase:UITouchPhaseEnded];
-	UIEvent *eventUp = [[UIEvent alloc] initWithTouch:touch];
+	UIEvent *eventUp =  [[NSClassFromString(@"UITouchesEvent") alloc] initWithTouch:touch];
 	
 	[touch.view touchesEnded:[eventUp allTouches] withEvent:eventUp];
+    
+    if ([touch.view canBecomeFirstResponder]) {
+        [touch.view becomeFirstResponder];
+    }
 	
 	[eventDown release];
 	[eventUp release];
